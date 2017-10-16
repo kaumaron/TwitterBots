@@ -41,7 +41,7 @@ class PyStreamListener(StreamListener):
             if publish:
                 twitter_client.retweet(tweet['id'])
                 logging.debug("RT: {}".format(tweet['text']))
-                sleep(30)
+                sleep(3)
 
         except Exception as ex:
             logging.error(ex)
