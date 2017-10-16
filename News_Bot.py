@@ -12,7 +12,7 @@ warnings.filterwarnings('ignore')
 
 auth_handler = OAuthHandler(consumer_key, consumer_secret)
 auth_handler.set_access_token(access_token, access_token_secret)
-twitter_client = API(auth_handler)
+twitter_client = API(auth_handler, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 
 logging.getLogger("main").setLevel(logging.INFO)
 
