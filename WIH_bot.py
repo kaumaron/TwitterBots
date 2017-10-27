@@ -10,17 +10,29 @@ from secrets import *
 
 warnings.filterwarnings('ignore')
 
-auth_handler = OAuthHandler(consumer_key_news, consumer_secret_news)
-auth_handler.set_access_token(access_token_news, access_token_secret_news)
+auth_handler = OAuthHandler(consumer_key_WIH, consumer_secret_WIH)
+auth_handler.set_access_token(access_token_WIH, access_token_secret_WIH)
 twitter_client = API(auth_handler, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 
 logging.getLogger("main").setLevel(logging.INFO)
 
-AVOID = ["monty", "leather", "skin", "bag", "blood", "bite", "dailym.ai", "@MailOnline"]
-terms = [
-'python', 'data science', 'datascience', 'dataskeptic','AI', 'artificial intelligence',
-'IOT', 'internet of things'
-        ]
+AVOID = []  #["monty", "leather", "skin", "bag", "blood", "bite", "dailym.ai", "@MailOnline"]
+terms =['from:highcastletv',
+ '#highcastle',
+ '#maninthehighcastle',
+ '#alternatehistory',
+ '#whatif',
+ '#whatifhistory',
+ 'from:alt_historian',
+ 'from:ahwupdate',
+ 'from:Yesterday_Today',
+ '#militaryhistory',
+ 'from:MilHistNow',
+ '#WW2',
+ 'from:WW2Nation',
+ 'from:HNTurtledove',
+ '#WorldWar2',
+ 'from:HistoryofWWII'] 
 
 class PyStreamListener(StreamListener):
     def on_data(self, data):

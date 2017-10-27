@@ -10,8 +10,8 @@ from secrets import *
 
 warnings.filterwarnings('ignore')
 
-auth_handler = OAuthHandler(consumer_key_news, consumer_secret_news)
-auth_handler.set_access_token(access_token_news, access_token_secret_news)
+auth_handler = OAuthHandler(consumer_key, consumer_secret)
+auth_handler.set_access_token(access_token, access_token_secret)
 twitter_client = API(auth_handler, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 
 logging.getLogger("main").setLevel(logging.INFO)
