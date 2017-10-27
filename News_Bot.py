@@ -16,12 +16,37 @@ twitter_client = API(auth_handler, wait_on_rate_limit=True, wait_on_rate_limit_n
 
 logging.getLogger("main").setLevel(logging.INFO)
 
-AVOID = ["monty", "leather", "skin", "bag", "blood", "bite", "dailym.ai", "@MailOnline"]
-terms = [
-'python', 'data science', 'datascience', 'dataskeptic','AI', 'artificial intelligence',
-'IOT', 'internet of things'
-        ]
+AVOID = ["monty", "leather", "skin", "bag", "blood", "bite", "dailym.ai", "@MailOnline", "opinion"]
+terms =[ 'from:BBCNews',
+ 'from:nypost',
+ 'from:BBCWorld',
+ 'from:Forbes',
+ 'from:CBSNews',
+ 'from:CNNBRK',
+ 'from:thehill',
+ 'from:FoxNews',
+ 'from:washingtonpost',
+ 'from:WSJ',
+ 'from:ABC',
+ 'from:NBCNews',
+ 'from:WashTimes',
+ 'from:BBCBreaking',
+ 'from:BreitbartNews',
+ 'from:TheEconomist',
+ 'from:business',
+ 'from:nytimes',
+ 'from:AP',
+ 'from:NewsandGuts',
+ 'from:DanRather',
+ 'from:Methodenstreit',
+ 'from:BillGates',
+ 'from:TheNewsUnspun',
+ 'from:kold830',
+ 'from:adamkornfield',
+ 'from:CNN',
+ 'from:guardian']
 
+ 
 class PyStreamListener(StreamListener):
     def on_data(self, data):
         tweet = json.loads(data)
