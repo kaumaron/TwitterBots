@@ -18,7 +18,7 @@ logging.getLogger("main").setLevel(logging.INFO)
 
 AVOID = ["monty", "leather", "skin", "bag", "blood", "bite", "dailym.ai", "@MailOnline"]
 terms = [
-'python', 'data science', 'datascience', 'dataskeptic','AI', 'artificial intelligence',
+'data science', 'datascience', 'artificial intelligence',
 'IOT', 'internet of things'
         ]
 
@@ -41,6 +41,7 @@ class PyStreamListener(StreamListener):
             if publish:
                 twitter_client.retweet(tweet['id'])
                 logging.debug("RT: {}".format(tweet['text']))
+                sleep(45)
 
         except Exception as ex:
             logging.error(ex)
