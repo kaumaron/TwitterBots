@@ -2,6 +2,7 @@ from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler, API
 from tweepy import Stream
 from time import sleep
+from random import randint
 import json
 import logging
 import warnings
@@ -52,6 +53,7 @@ class PyStreamListener(StreamListener):
             if publish:
                 twitter_client.retweet(tweet['id'])
                 logging.debug("RT: {}".format(tweet['text']))
+                sleep(randint(20,90))
 
         except Exception as ex:
             logging.error(ex)
@@ -61,7 +63,20 @@ class PyStreamListener(StreamListener):
     def on_error(self, status):
         print(status)
 
+def start_stream():
+    while True:
+        try:
+            stream = Stream(auth_handler, listener)
+            stream.filter(track= ['FBI','Trump'], languages=['en'], stall_warnings = True)
+        except KeyboardInterrupt:
+            logging.debug("Manual interrupt! Don't worry. Be Happy!\nBippity Boppity Boo.")
+            print("Manual interrupt! Don't worry. James, that means you!\nDown for maintenence or malicious intent.")
+            break
+        except Exception as e:
+            print("Stream failed due to error: {}".format(e))
+            logging.debug("Stream failed due to error: {}".format(e))
+            continue
+
 if __name__ == '__main__':
     listener = PyStreamListener()
-    stream = Stream(auth_handler, listener)
-    stream.filter(track= ['Trump'], languages=['en'], stall_warnings = True)
+    start_stream()

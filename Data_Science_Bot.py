@@ -1,6 +1,7 @@
 from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler, API
 from tweepy import Stream
+from random import randint
 from time import sleep
 import json
 import logging
@@ -18,8 +19,8 @@ logging.getLogger("main").setLevel(logging.INFO)
 
 AVOID = ["monty", "leather", "skin", "bag", "blood", "bite", "dailym.ai", "@MailOnline"]
 terms = [
-'python', 'data science', 'datascience', 'dataskeptic','AI', 'artificial intelligence',
-'IOT', 'internet of things'
+'data science', 'datascience', 'artificial intelligence',
+'Deep Learning', '@TDataScience', 'internet of things'
         ]
 
 class PyStreamListener(StreamListener):
@@ -41,6 +42,7 @@ class PyStreamListener(StreamListener):
             if publish:
                 twitter_client.retweet(tweet['id'])
                 logging.debug("RT: {}".format(tweet['text']))
+                sleep(randint(60,180))
 
         except Exception as ex:
             logging.error(ex)
