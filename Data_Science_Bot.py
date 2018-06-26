@@ -21,7 +21,7 @@ AVOID = ["monty", "leather", "skin", "bag", "blood", "bite", "dailym.ai", "@Mail
 terms = [
 'data science', 'datascience', 'artificial intelligence',
 'Deep Learning', '@TDataScience', 'internet of things'
-        ]
+]
 
 class PyStreamListener(StreamListener):
     def on_data(self, data):
@@ -42,7 +42,7 @@ class PyStreamListener(StreamListener):
             if publish:
                 twitter_client.retweet(tweet['id'])
                 logging.debug("RT: {}".format(tweet['text']))
-                sleep(randint(60,180))
+                sleep(90,180)
 
         except Exception as ex:
             logging.error(ex)
