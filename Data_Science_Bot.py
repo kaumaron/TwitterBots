@@ -13,14 +13,22 @@ warnings.filterwarnings('ignore')
 
 auth_handler = OAuthHandler(consumer_key, consumer_secret)
 auth_handler.set_access_token(access_token, access_token_secret)
-twitter_client = API(auth_handler, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
+twitter_client = API(auth_handler,
+                    wait_on_rate_limit=True,
+                    wait_on_rate_limit_notify=True)
 
 logging.getLogger("main").setLevel(logging.INFO)
 
-AVOID = ["monty", "leather", "skin", "bag", "blood", "bite", "dailym.ai", "@MailOnline"]
+AVOID = [
+        "dailym.ai",
+        "@MailOnline",
+        ]
 terms = [
-'data science', 'datascience', 'artificial intelligence',
-'Deep Learning', '@TDataScience', 'internet of things'
+        'data science',
+        'datascience',
+        'artificial intelligence',
+        'Deep Learning',
+        '@TDataScience',
         ]
 
 class PyStreamListener(StreamListener):
@@ -28,6 +36,9 @@ class PyStreamListener(StreamListener):
         tweet = json.loads(data)
         try:
             publish = True
+            if tweet['user']['screen_name'] in AVOID:
+                publish = False
+
             for word in AVOID:
                 if word.lower() in tweet['text'].lower():
                     logging.info("SKIPPED FOR {}".format(word))
@@ -52,7 +63,23 @@ class PyStreamListener(StreamListener):
     def on_error(self, status):
         print(status)
 
+def start_stream():
+    while True:
+            try:
+                stream = Stream(auth_handler, listener)
+                stream.filter(track= ['FBI','Trump'], languages=['en'],
+                    stall_warnings = True)
+            except KeyboardInterrupt:
+                logging.debug("Manual interrupt! Don't worry. Be Happy!"+\
+                    "Bippity Boppity Boo.")
+                print("Manual interrupt! Don't worry. James, that means you!"+\
+                        "Down for maintenence or malicious intent.")
+                break
+            except Exception as e:
+                print("Stream failed due to error: {}".format(e))
+                logging.debug("Stream failed due to error: {}".format(e))
+                continue
+
 if __name__ == '__main__':
     listener = PyStreamListener()
-    stream = Stream(auth_handler, listener)
-    stream.filter(track=terms, stall_warnings = True)
+    start_stream()
